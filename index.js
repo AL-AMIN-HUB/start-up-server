@@ -24,7 +24,6 @@ async function run() {
       res.json(result);
     });
 
-    //
     app.get("/services/:id", async (req, res) => {
       const id = req.params.id;
       const service = { _id: ObjectId(id) };
