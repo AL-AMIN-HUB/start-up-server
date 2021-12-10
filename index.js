@@ -17,10 +17,16 @@ async function run() {
     await client.connect();
     const database = client.db("start_up");
     const servicesCollection = database.collection("services");
+    const productsCollection = database.collection("products");
 
     // get api
     app.get("/services", async (req, res) => {
       const result = await servicesCollection.find({}).toArray();
+      res.json(result);
+    });
+    // products
+    app.get("/products", async (req, res) => {
+      const result = await productsCollection.find({}).toArray();
       res.json(result);
     });
 
