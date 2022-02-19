@@ -32,7 +32,6 @@ async function run() {
       const result = await servicesCollection.findOne(service);
       res.json(result);
     });
-
     // services
     app.get("/services", async (req, res) => {
       const result = await servicesCollection.find({}).toArray();
