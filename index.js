@@ -20,13 +20,22 @@ async function run() {
     const productsCollection = database.collection("products");
 
     // get api
-    app.get("/services", async (req, res) => {
-      const result = await servicesCollection.find({}).toArray();
-      res.json(result);
-    });
     // products
     app.get("/products", async (req, res) => {
       const result = await productsCollection.find({}).toArray();
+      res.json(result);
+    });
+
+    app.get("/products/:id", async (req, res) => {
+      const id = req.params.id;
+      const service = { _id: ObjectId(id) };
+      const result = await servicesCollection.findOne(service);
+      res.json(result);
+    });
+
+    // services
+    app.get("/services", async (req, res) => {
+      const result = await servicesCollection.find({}).toArray();
       res.json(result);
     });
 
