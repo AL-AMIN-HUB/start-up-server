@@ -26,12 +26,14 @@ async function run() {
       res.json(result);
     });
 
+    //
     app.get("/products/:id", async (req, res) => {
       const id = req.params.id;
-      const service = { _id: ObjectId(id) };
-      const result = await servicesCollection.findOne(service);
-      res.json(result);
+      const query = { _id: ObjectId(id) };
+      const product = await productsCollection.findOne(query);
+      res.json(product);
     });
+
     // services
     app.get("/services", async (req, res) => {
       const result = await servicesCollection.find({}).toArray();
