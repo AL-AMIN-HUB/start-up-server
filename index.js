@@ -18,11 +18,18 @@ async function run() {
     const database = client.db("start_up");
     const servicesCollection = database.collection("services");
     const productsCollection = database.collection("products");
+    const ordersCollection = database.collection("orders");
 
     // get api
     // products
     app.get("/products", async (req, res) => {
       const result = await productsCollection.find({}).toArray();
+      res.json(result);
+    });
+
+    // all orders get
+    app.get("/allOrders", async (req, res) => {
+      const result = await ordersCollection.find({}).toArray();
       res.json(result);
     });
 
@@ -45,6 +52,13 @@ async function run() {
       const service = { _id: ObjectId(id) };
       const result = await servicesCollection.findOne(service);
       res.json(result);
+    });
+
+    // post api
+    // orders
+    app.post("/orders", async (req, res) => {
+      const orders = await ordersCollection.insertOne(req.body);
+      res.json(orders);
     });
   } finally {
     // await client.close();
