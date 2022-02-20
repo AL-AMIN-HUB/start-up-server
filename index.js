@@ -27,11 +27,16 @@ async function run() {
       res.json(result);
     });
 
+    // get my order
+    app.get("/allOrders/:email", async (req, res) => {
+      const myOrder = await ordersCollection.find({ email: req.params?.email }).toArray();
+      res.json(myOrder);
+    });
     // all orders get
-    app.get("/allOrders", async (req, res) => {
+    /* app.get("/allOrders", async (req, res) => {
       const result = await ordersCollection.find({}).toArray();
       res.json(result);
-    });
+    }); */
 
     //
     app.get("/products/:id", async (req, res) => {
