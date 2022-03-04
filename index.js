@@ -32,12 +32,6 @@ async function run() {
       const myOrder = await ordersCollection.find({ email: req.params?.email }).toArray();
       res.json(myOrder);
     });
-    // all orders get
-    /* app.get("/allOrders", async (req, res) => {
-      const result = await ordersCollection.find({}).toArray();
-      res.json(result);
-    }); */
-
     //
     app.get("/products/:id", async (req, res) => {
       const id = req.params.id;
@@ -64,6 +58,14 @@ async function run() {
     app.post("/orders", async (req, res) => {
       const orders = await ordersCollection.insertOne(req.body);
       res.json(orders);
+    });
+
+    // delete api
+    app.delete("/allOrders/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await ordersCollection.deleteOne(query);
+      res.json(result);
     });
   } finally {
     // await client.close();
